@@ -5,8 +5,10 @@ DOCUMENTATION = '''
 module: win_file
 version_added: ""
 short_description: File manipulation within Windows
+author: Nick Simmonds
 description:
-     - Creates, moves, edits, deletes, etc. files within Windows via native Powershell
+     - Creates, moves, edits, deletes, etc.
+     - files within Windows via native Powershell
 options:
   file:
     description:
@@ -27,5 +29,13 @@ options:
     required: false
     default: null
     aliases: []
-author: Nick Simmonds
+  mkdir:
+    description:
+      - Option directory to create. If present,
+      - will always attempt to create the directory.
+      - Note that "file" should still be an absolute path
+    required: false
+    default: null
+    aliases: []
+
 '''
