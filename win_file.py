@@ -12,7 +12,9 @@ description:
 options:
   file:
     description:
-      - Absolute path to the file location
+      - Absolute path to the file location.
+      - Alternatively, just a filename if mkdir
+      - is present
     required: true
     default: null
     aliases: []
@@ -31,11 +33,13 @@ options:
     aliases: []
   mkdir:
     description:
-      - Option directory to create. If present,
+      - Optional directory to create. If present,
       - will always attempt to create the directory.
-      - Note that "file" should still be an absolute path
+      - Use when unsure whether the directory exists.
+      - If mkdir is present, it is assumed that file
+      - is just a filename
+      - Include trailing slashes
     required: false
     default: null
     aliases: []
-
 '''

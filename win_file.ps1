@@ -3,14 +3,6 @@
 # WANT_JSON
 # POWERSHELL_COMMON
 
-#$html = get-content c:\inetpub\wwwroot\iisstart.htm
-#
-#$new = $html -replace "world", "Lewis"
-#
-#echo $new
-#
-#set-content c:\inetpub\wwwroot\iisstart.htm $new
-
 $params = Parse-Args $args;
 
 $result = New-Object psobject @{
@@ -26,6 +18,7 @@ if ($params.content) {
 
 if ($params.mkdir) {
   mkdir $params.mkdir
+  $params.file = $params.mkdir + $params.file
 }
 
 switch ($params.action) {
@@ -46,7 +39,14 @@ switch ($params.action) {
     set-content $params.file $content
   }
   default {
-    new-item $params.file -value $content -itemtype file
+    Try {
+      new-item $params.file -value $content -itemtype file
+      $result.changed = $true
+      Set-Attr $result.win_file $params.file "created"
+    }
+    Catch {
+      Fail-Json $result "Error creating file"
+    }
   }
 }
 
